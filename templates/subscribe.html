@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block title %}Subscribe{% endblock %}
+
+{% block extra_css %}
+<style>
+    .subscribe-container {
+        min-height: calc(100vh - 81px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+    
+    .subscribe-card {
+        width: 100%;
+        max-width: 480px;
+        text-align: center;
+    }
+    
+    .subscribe-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, rgba(252, 213, 53, 0.2) 0%, rgba(252, 213, 53, 0.1) 100%);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 24px;
+        font-size: 40px;
+    }
+    
+    .subscribe-title {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+    
+    .subscribe-subtitle {
+        color: var(--text-secondary);
+        font-size: 15px;
+        margin-bottom: 32px;
+    }
+    
+    .plan-card {
+        background: var(--bg-primary);
+        border: 2px solid var(--accent-yellow);
+        border-radius: 16px;
+        padding: 32px;
+        margin-bottom: 24px;
+    }
+    
+    .plan-name {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--accent-yellow);
+        margin-bottom: 8px;
+    }
+    
+    .plan-price {
+        font-size: 48px;
+        font-weight: 800;
+        margin-bottom: 8px;
+    }
+    
+    .plan-price span {
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--text-secondary);
+    }
+    
+    .plan-billing {
+        font-size: 14px;
+        color: var(--text-secondary);
+        margin-bottom: 24px;
+    }
+    
+    .plan-features {
+        text-align: left;
+        margin-bottom: 24px;
+    }
+    
+    .plan-feature {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 0;
+        font-size: 14px;
+        color: var(--text-secondary);
+    }
+    
+    .plan-feature-check {
+        width: 20px;
+        height: 20px;
+        background: rgba(0, 230, 118, 0.15);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-green);
+        font-size: 12px;
+        flex-shrink: 0;
+    }
+    
+    .secure-badge {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 16px;
+        font-size: 13px;
+        color: var(--text-tertiary);
+    }
+    
+    .secure-badge svg {
+        width: 14px;
+        height: 14px;
+    }
+    
+    .guarantee {
+        margin-top: 24px;
+        padding: 16px;
+        background: rgba(0, 230, 118, 0.05);
+        border: 1px solid rgba(0, 230, 118, 0.2);
+        border-radius: 8px;
+        font-size: 13px;
+        color: var(--accent-green);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="subscribe-container">
+    <div class="subscribe-card card">
+        <div class="subscribe-icon">🚀</div>
+        
+        <h1 class="subscribe-title">Unlock Candle Edge Pro</h1>
+        <p class="subscribe-subtitle">
+            Get full access to AI-powered trading signals and start making smarter trades today.
+        </p>
+        
+        <div class="plan-card">
+            <div class="plan-name">Pro Monthly</div>
+            <div class="plan-price">$5<span>/month</span></div>
+            <div class="plan-billing">Billed monthly · Cancel anytime</div>
+            
+            <div class="plan-features">
+                <div class="plan-feature">
+                    <div class="plan-feature-check">✓</div>
+                    <span>Real-time signals for 7 assets</span>
+                </div>
+                <div class="plan-feature">
+                    <div class="plan-feature-check">✓</div>
+                    <span>Multi-timeframe analysis (15m, 1H, 4H, 1D)</span>
+                </div>
+                <div class="plan-feature">
+                    <div class="plan-feature-check">✓</div>
+                    <span>Support & resistance levels</span>
+                </div>
+                <div class="plan-feature">
+                    <div class="plan-feature-check">✓</div>
+                    <span>Risk assessment & position sizing</span>
+                </div>
+                <div class="plan-feature">
+                    <div class="plan-feature-check">✓</div>
+                    <span>Covered call overlay</span>
+                </div>
+                <div class="plan-feature">
+                    <div class="plan-feature-check">✓</div>
+                    <span>Stretch & mean reversion signals</span>
+                </div>
+            </div>
+            
+            <form action="{{ url_for('create_checkout_session') }}" method="POST">
+                <button type="submit" class="btn btn-primary btn-large btn-full">
+                    Subscribe Now — $5/month
+                </button>
+            </form>
+            
+            <div class="secure-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+                Secured by Stripe
+            </div>
+        </div>
+        
+        <div class="guarantee">
+            💰 30-day money-back guarantee. Not satisfied? We'll refund you, no questions asked.
+        </div>
+    </div>
+</div>
+{% endblock %}

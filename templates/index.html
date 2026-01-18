@@ -1,0 +1,490 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Hero Section */
+    .hero {
+        padding: 80px 40px;
+        text-align: center;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        background: rgba(252, 213, 53, 0.1);
+        border: 1px solid rgba(252, 213, 53, 0.3);
+        border-radius: 50px;
+        font-size: 13px;
+        color: var(--accent-yellow);
+        margin-bottom: 24px;
+    }
+    
+    .hero-title {
+        font-size: 56px;
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 24px;
+        background: linear-gradient(135deg, #fff 0%, #848e9c 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .hero-title span {
+        background: linear-gradient(135deg, var(--accent-yellow) 0%, #f0c000 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .hero-subtitle {
+        font-size: 20px;
+        color: var(--text-secondary);
+        margin-bottom: 40px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .hero-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+    
+    .hero-stats {
+        display: flex;
+        justify-content: center;
+        gap: 48px;
+        margin-top: 60px;
+        padding-top: 40px;
+        border-top: 1px solid var(--border-color);
+    }
+    
+    .hero-stat {
+        text-align: center;
+    }
+    
+    .hero-stat-value {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--accent-yellow);
+    }
+    
+    .hero-stat-label {
+        font-size: 14px;
+        color: var(--text-secondary);
+        margin-top: 4px;
+    }
+    
+    /* Features Section */
+    .features {
+        padding: 80px 40px;
+        background: var(--bg-secondary);
+    }
+    
+    .features-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+    
+    .section-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--accent-yellow);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 12px;
+    }
+    
+    .section-title {
+        font-size: 40px;
+        font-weight: 700;
+        margin-bottom: 16px;
+    }
+    
+    .section-subtitle {
+        font-size: 18px;
+        color: var(--text-secondary);
+        max-width: 600px;
+    }
+    
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-top: 48px;
+    }
+    
+    .feature-card {
+        background: var(--bg-primary);
+        border-radius: 16px;
+        padding: 32px;
+        border: 1px solid var(--border-color);
+        transition: transform 0.2s, border-color 0.2s;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--accent-yellow);
+    }
+    
+    .feature-icon {
+        width: 48px;
+        height: 48px;
+        background: rgba(252, 213, 53, 0.1);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        font-size: 24px;
+    }
+    
+    .feature-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 12px;
+    }
+    
+    .feature-desc {
+        font-size: 14px;
+        color: var(--text-secondary);
+        line-height: 1.7;
+    }
+    
+    /* Pricing Section */
+    .pricing {
+        padding: 80px 40px;
+    }
+    
+    .pricing-inner {
+        max-width: 500px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    
+    .pricing-card {
+        background: var(--bg-secondary);
+        border-radius: 24px;
+        padding: 48px;
+        border: 2px solid var(--accent-yellow);
+        margin-top: 48px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .pricing-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--accent-yellow), #f0c000);
+    }
+    
+    .pricing-popular {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        background: var(--accent-yellow);
+        color: #000;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 12px;
+        border-radius: 50px;
+    }
+    
+    .pricing-name {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+    
+    .pricing-desc {
+        font-size: 14px;
+        color: var(--text-secondary);
+        margin-bottom: 24px;
+    }
+    
+    .pricing-price {
+        font-size: 56px;
+        font-weight: 800;
+    }
+    
+    .pricing-price span {
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--text-secondary);
+    }
+    
+    .pricing-features {
+        margin: 32px 0;
+        text-align: left;
+    }
+    
+    .pricing-feature {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border-color);
+        font-size: 14px;
+    }
+    
+    .pricing-feature:last-child {
+        border-bottom: none;
+    }
+    
+    .pricing-check {
+        width: 20px;
+        height: 20px;
+        background: rgba(0, 230, 118, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-green);
+        font-size: 12px;
+    }
+    
+    /* CTA Section */
+    .cta {
+        padding: 80px 40px;
+        background: linear-gradient(135deg, rgba(252, 213, 53, 0.1) 0%, rgba(252, 213, 53, 0.02) 100%);
+        text-align: center;
+    }
+    
+    .cta-inner {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .cta-title {
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 16px;
+    }
+    
+    .cta-subtitle {
+        font-size: 18px;
+        color: var(--text-secondary);
+        margin-bottom: 32px;
+    }
+    
+    /* Footer */
+    .footer {
+        padding: 40px;
+        border-top: 1px solid var(--border-color);
+        text-align: center;
+        color: var(--text-secondary);
+        font-size: 14px;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .hero {
+            padding: 40px 20px;
+        }
+        
+        .hero-title {
+            font-size: 36px;
+        }
+        
+        .hero-stats {
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        .features-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .features, .pricing, .cta {
+            padding: 60px 20px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-badge">
+        <span>⚡</span>
+        Powered by Aristotle AI
+    </div>
+    
+    <h1 class="hero-title">
+        Trade Smarter with<br><span>AI-Powered Signals</span>
+    </h1>
+    
+    <p class="hero-subtitle">
+        Candle Edge analyzes market data across multiple timeframes to give you clear, 
+        actionable trading signals. No noise. Just edge.
+    </p>
+    
+    <div class="hero-buttons">
+        <a href="{{ url_for('signup') }}" class="btn btn-primary btn-large">
+            Start Free Trial →
+        </a>
+        <a href="#features" class="btn btn-secondary btn-large">
+            See How It Works
+        </a>
+    </div>
+    
+    <div class="hero-stats">
+        <div class="hero-stat">
+            <div class="hero-stat-value">7</div>
+            <div class="hero-stat-label">Assets Tracked</div>
+        </div>
+        <div class="hero-stat">
+            <div class="hero-stat-value">4</div>
+            <div class="hero-stat-label">Timeframes</div>
+        </div>
+        <div class="hero-stat">
+            <div class="hero-stat-value">24/7</div>
+            <div class="hero-stat-label">Live Analysis</div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features" id="features">
+    <div class="features-inner">
+        <div class="section-label">Features</div>
+        <h2 class="section-title">Everything you need to trade with confidence</h2>
+        <p class="section-subtitle">
+            Our AI analyzes price action, volatility, and market structure to deliver signals you can act on.
+        </p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">Multi-Timeframe Analysis</h3>
+                <p class="feature-desc">
+                    See alignment across 15m, 1H, 4H, and daily charts. Know when all timeframes agree.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">Key Levels Detection</h3>
+                <p class="feature-desc">
+                    Automatically identify support, resistance, and pivot levels where price may react.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Live Signal Feed</h3>
+                <p class="feature-desc">
+                    Real-time alerts for MACD crossovers, RSI extremes, VWAP reclaims, and more.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3 class="feature-title">Risk Assessment</h3>
+                <p class="feature-desc">
+                    ATR-based position sizing, volatility metrics, and max drawdown tracking.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📈</div>
+                <h3 class="feature-title">Stretch Indicators</h3>
+                <p class="feature-desc">
+                    Z-score analysis to identify when price is extended and due for mean reversion.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3 class="feature-title">Covered Call Helper</h3>
+                <p class="feature-desc">
+                    Get suggested strikes and deltas for selling premium on your positions.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section class="pricing" id="pricing">
+    <div class="pricing-inner">
+        <div class="section-label">Pricing</div>
+        <h2 class="section-title">Simple, affordable pricing</h2>
+        <p class="section-subtitle">
+            One plan. Full access. Cancel anytime.
+        </p>
+        
+        <div class="pricing-card">
+            <div class="pricing-popular">Most Popular</div>
+            <h3 class="pricing-name">Candle Edge Pro</h3>
+            <p class="pricing-desc">Full access to all features</p>
+            
+            <div class="pricing-price">
+                $5<span>/month</span>
+            </div>
+            
+            <div class="pricing-features">
+                <div class="pricing-feature">
+                    <div class="pricing-check">✓</div>
+                    All 7 assets (SOL, BTC, ETH, SUI, MSTR, TSLA, NVDA)
+                </div>
+                <div class="pricing-feature">
+                    <div class="pricing-check">✓</div>
+                    Multi-timeframe analysis
+                </div>
+                <div class="pricing-feature">
+                    <div class="pricing-check">✓</div>
+                    Live signal feed
+                </div>
+                <div class="pricing-feature">
+                    <div class="pricing-check">✓</div>
+                    Risk & position sizing
+                </div>
+                <div class="pricing-feature">
+                    <div class="pricing-check">✓</div>
+                    Covered call overlay
+                </div>
+                <div class="pricing-feature">
+                    <div class="pricing-check">✓</div>
+                    Cancel anytime
+                </div>
+            </div>
+            
+            <a href="{{ url_for('signup') }}" class="btn btn-primary btn-large btn-full">
+                Get Started Now
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta">
+    <div class="cta-inner">
+        <h2 class="cta-title">Ready to get your edge?</h2>
+        <p class="cta-subtitle">
+            Join traders who use Candle Edge to make smarter decisions every day.
+        </p>
+        <a href="{{ url_for('signup') }}" class="btn btn-primary btn-large">
+            Start Your Free Trial →
+        </a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>© 2026 Candle Edge. All rights reserved. Not financial advice.</p>
+</footer>
+{% endblock %}

@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block extra_css %}
+<style>
+    .dashboard {
+        padding: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 32px;
+    }
+    
+    .dashboard-welcome {
+        font-size: 28px;
+        font-weight: 700;
+    }
+    
+    .dashboard-welcome span {
+        color: var(--accent-yellow);
+    }
+    
+    .dashboard-status {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        background: rgba(0, 230, 118, 0.1);
+        border: 1px solid rgba(0, 230, 118, 0.3);
+        border-radius: 50px;
+        font-size: 13px;
+        color: var(--accent-green);
+    }
+    
+    .status-dot {
+        width: 8px;
+        height: 8px;
+        background: var(--accent-green);
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+    
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-bottom: 32px;
+    }
+    
+    .stat-card {
+        background: var(--bg-secondary);
+        border-radius: 16px;
+        padding: 24px;
+        border: 1px solid var(--border-color);
+    }
+    
+    .stat-label {
+        font-size: 13px;
+        color: var(--text-secondary);
+        margin-bottom: 8px;
+    }
+    
+    .stat-value {
+        font-size: 32px;
+        font-weight: 700;
+    }
+    
+    .stat-value.green { color: var(--accent-green); }
+    .stat-value.yellow { color: var(--accent-yellow); }
+    .stat-value.red { color: var(--accent-red); }
+    
+    .launch-card {
+        background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(252, 213, 53, 0.05) 100%);
+        border-radius: 24px;
+        padding: 48px;
+        border: 1px solid var(--border-color);
+        text-align: center;
+    }
+    
+    .launch-icon {
+        width: 80px;
+        height: 80px;
+        background: rgba(252, 213, 53, 0.1);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 24px;
+        font-size: 40px;
+    }
+    
+    .launch-title {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+    
+    .launch-desc {
+        color: var(--text-secondary);
+        margin-bottom: 32px;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .quick-links {
+        margin-top: 48px;
+    }
+    
+    .quick-links-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 16px;
+    }
+    
+    .quick-links-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+    }
+    
+    .quick-link {
+        background: var(--bg-secondary);
+        border-radius: 12px;
+        padding: 20px;
+        border: 1px solid var(--border-color);
+        text-align: center;
+        text-decoration: none;
+        color: var(--text-primary);
+        transition: all 0.2s;
+    }
+    
+    .quick-link:hover {
+        border-color: var(--accent-yellow);
+        transform: translateY(-2px);
+    }
+    
+    .quick-link-icon {
+        font-size: 24px;
+        margin-bottom: 8px;
+    }
+    
+    .quick-link-label {
+        font-size: 14px;
+        font-weight: 500;
+    }
+    
+    @media (max-width: 768px) {
+        .dashboard {
+            padding: 20px;
+        }
+        
+        .dashboard-header {
+            flex-direction: column;
+            gap: 16px;
+            text-align: center;
+        }
+        
+        .dashboard-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .quick-links-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <div class="dashboard-header">
+        <h1 class="dashboard-welcome">
+            Welcome back, <span>{{ user.name.split()[0] if user else 'Trader' }}</span>
+        </h1>
+        <div class="dashboard-status">
+            <span class="status-dot"></span>
+            Pro Member
+        </div>
+    </div>
+    
+    <div class="dashboard-grid">
+        <div class="stat-card">
+            <div class="stat-label">Market Mode</div>
+            <div class="stat-value yellow">CHOP</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Active Signals</div>
+            <div class="stat-value">12</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Today's Trend</div>
+            <div class="stat-value green">Bullish</div>
+        </div>
+    </div>
+    
+    <div class="launch-card">
+        <div class="launch-icon">🧠</div>
+        <h2 class="launch-title">Launch Trading Dashboard</h2>
+        <p class="launch-desc">
+            Access real-time signals, multi-timeframe analysis, and AI-powered insights across all 7 assets.
+        </p>
+        <a href="#" class="btn btn-primary btn-large">
+            Open Dashboard →
+        </a>
+    </div>
+    
+    <div class="quick-links">
+        <h3 class="quick-links-title">Quick Links</h3>
+        <div class="quick-links-grid">
+            <a href="#" class="quick-link">
+                <div class="quick-link-icon">📊</div>
+                <div class="quick-link-label">SOL Analysis</div>
+            </a>
+            <a href="#" class="quick-link">
+                <div class="quick-link-icon">₿</div>
+                <div class="quick-link-label">BTC Analysis</div>
+            </a>
+            <a href="#" class="quick-link">
+                <div class="quick-link-icon">⟠</div>
+                <div class="quick-link-label">ETH Analysis</div>
+            </a>
+            <a href="#" class="quick-link">
+                <div class="quick-link-icon">⚡</div>
+                <div class="quick-link-label">All Signals</div>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
